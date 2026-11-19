@@ -1,26 +1,27 @@
 <!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kalkulator Teknik Step-by-Step</title>
 <style>
-:root{--bg:#0b1220;--card:#111a2e;--line:#22304d;--tx:#e2e8f0;--mut:#8aa0bf;--c:#22d3ee;--g:#34d399;--a:#fbbf24;--r:#f87171}
+:root{--bg:#0b1220;--card:#111a2e;--line:#22304d;--tx:#e2e8f0;--mut:#8aa0bf;--c:#22d3ee;--g:#34d399;--a:#fbbf24;--r:#f87171;--p:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,Segoe UI,Roboto,sans-serif;font-variant-numeric:tabular-nums;min-height:100vh;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(#22d3ee14 1px,transparent 1px),linear-gradient(90deg,#22d3ee14 1px,transparent 1px);background-size:40px 40px;animation:grid 14s linear infinite}
 body:after{content:"";position:fixed;width:50vmax;height:50vmax;left:-10vmax;top:-10vmax;z-index:-1;background:radial-gradient(circle,#22d3ee30,transparent 60%);animation:glow 16s ease-in-out infinite alternate}
 @keyframes grid{to{background-position:40px 40px}}@keyframes glow{to{transform:translate(55vw,35vh);opacity:.55}}
-@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}@keyframes draw{to{stroke-dashoffset:0}}
-main{max-width:920px;margin:0 auto;padding:18px 14px 50px}h1{font-size:1.35rem;margin:6px 0 2px;background:linear-gradient(90deg,var(--c),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}@keyframes draw{to{stroke-dashoffset:0}}@keyframes pulseSoft{0%,100%{box-shadow:0 0 0 0 #34d39922}50%{box-shadow:0 0 0 8px #34d39900}}
+main{max-width:940px;margin:0 auto;padding:18px 14px 54px}h1{font-size:1.38rem;margin:6px 0 2px;background:linear-gradient(90deg,var(--c),var(--g),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{color:var(--mut);margin:0 0 14px;font-size:.85rem}
-#cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}.chip{flex:none;background:#0f1a30;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:6px 13px;cursor:pointer;font:inherit;font-size:.82rem;transition:.2s}.chip.on,.chip:hover{color:#06202a;background:var(--c);border-color:var(--c)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;animation:up .4s both}.card.shake{animation:shake .4s}
-select,input{width:100%;background:#0a1324;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit}select:focus,input:focus{outline:2px solid var(--c);border-color:transparent}
-#form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}label{font-size:.75rem;color:var(--mut);display:block;margin-bottom:3px}
-.btns{display:flex;gap:8px;flex-wrap:wrap}button.b{border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;transition:transform .15s}button.b:active{transform:scale(.96)}.go{background:var(--g);color:#052e1f}.ex{background:var(--a);color:#3a2800}.rs{background:#1c2943;color:var(--tx)}
+#cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}.chip{flex:none;background:#0f1a30;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:6px 13px;cursor:pointer;font:inherit;font-size:.82rem;transition:.2s}.chip.on,.chip:hover{color:#06202a;background:var(--c);border-color:var(--c);transform:translateY(-1px)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;animation:up .4s both;backdrop-filter:blur(6px)}.card.shake{animation:shake .4s}
+select,input{width:100%;background:#0a1324;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit;transition:border-color .2s,box-shadow .2s}select:focus,input:focus{outline:2px solid var(--c);border-color:transparent}
+#form{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin:12px 0}label{font-size:.75rem;color:var(--mut);display:block;margin-bottom:3px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}button.b{border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;transition:transform .15s,filter .2s}button.b:hover{filter:brightness(1.06)}button.b:active{transform:scale(.96)}.go{background:var(--g);color:#052e1f}.ex{background:var(--a);color:#3a2800}.rs{background:#1c2943;color:var(--tx)}
 #err{color:var(--r);margin-top:8px;font-size:.9rem;min-height:1em}
-.st{border-left:3px solid var(--c);background:#0d1830;border-radius:8px;padding:8px 12px;margin-top:10px;animation:up .45s both}.st h3{margin:0 0 4px;font-size:.88rem;color:var(--c)}.st:nth-of-type(2){border-color:var(--a)}.st:nth-of-type(3){border-color:var(--g)}
-.ln{font-family:ui-monospace,Consolas,monospace;font-size:.86rem;padding:1px 0;animation:up .4s both;word-break:break-word}
-.res{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}.rc{background:#08121f;border:1px solid var(--g);border-radius:10px;padding:8px 14px;min-width:120px}.rc small{display:block;color:var(--mut)}.rc b{font-size:1.4rem;color:var(--g)}.rc span{color:var(--mut);margin-left:4px}
-.note{color:var(--mut);font-size:.85rem;margin:8px 0 0}svg{width:100%;max-height:260px;margin-top:8px;background:#08121f;border-radius:10px}.ax{stroke:#3a4c70;fill:none}.pl{fill:none;stroke-width:2.2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s .3s forwards}svg text{fill:var(--mut);font-size:10px}
+.st{border-left:3px solid var(--c);background:#0d1830;border-radius:8px;padding:9px 12px;margin-top:10px;animation:up .45s both}.st h3{margin:0 0 5px;font-size:.88rem;color:var(--c)}.st:nth-of-type(2){border-color:var(--a)}.st:nth-of-type(2) h3{color:var(--a)}.st:nth-of-type(3){border-color:var(--p)}.st:nth-of-type(3) h3{color:var(--p)}
+.ln{font-family:ui-monospace,Consolas,monospace;font-size:.85rem;padding:2px 0;animation:up .4s both;word-break:break-word}
+.res{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}.rc{background:#08121f;border:1px solid var(--g);border-radius:10px;padding:8px 14px;min-width:120px;animation:pulseSoft 3s infinite}.rc small{display:block;color:var(--mut)}.rc b{font-size:1.25rem;color:var(--g)}.rc span{color:var(--mut);margin-left:4px;font-size:.82rem}
+.note{color:var(--mut);font-size:.85rem;margin:8px 0 0;font-family:ui-monospace,Consolas,monospace;word-break:break-word}
+svg{width:100%;max-height:260px;margin-top:10px;background:#08121f;border-radius:10px;border:1px solid #192842}.ax{stroke:#3a4c70;fill:none}.pl{fill:none;stroke-width:2.2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.3s .3s forwards}svg text{fill:var(--mut);font-size:10px}
 @media(prefers-reduced-motion:reduce){*,:before,:after{animation-duration:.01s!important;animation-delay:0s!important}}
 </style></head><body><main>
-<h1>⚡ Kalkulator Teknik Step-by-Step</h1><p class="sub">Elektro · Mesin · Matematika Teknik · Industri — selalu dengan jalan pengerjaan.</p>
+<h1>⚡ Kalkulator Teknik Step-by-Step</h1><p class="sub">Elektro · Mesin · Matematika Teknik · Industri · Pecahan Parsial Mentah — selalu dengan jalan pengerjaan.</p>
 <div id="cats"></div>
 <div class="card" id="box"><select id="sel"></select><div id="form"></div><div class="btns"><button class="b go" id="bGo">Hitung Jalan</button><button class="b ex" id="bEx">Contoh Soal</button><button class="b rs" id="bRs">Reset</button></div><div id="err"></div></div>
 <div id="out"></div></main>
@@ -28,7 +29,7 @@ select,input{width:100%;background:#0a1324;color:var(--tx);border:1px solid var(
 const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const fmt=n=>{if(typeof n!=='number')return String(n);if(!isFinite(n))return String(n);if(Object.is(n,-0))n=0;const a=Math.abs(n);if(a!==0&&(a<1e-4||a>=1e8))return n.toExponential(4);return String(+n.toPrecision(7))};
 const rad=d=>d*Math.PI/180,deg=r=>r*180/Math.PI,need=(c,m)=>{if(!c)throw Error(m)},PI=Math.PI;
-const pl=(c,x='x')=>{const n=c.length-1;const s=c.map((a,i)=>{const p=n-i;return a?(a<0?'-':'+')+(Math.abs(a)===1&&p?'':fmt(Math.abs(a)))+(p?x+(p>1?'^'+p:''):''):''}).join('');return s.replace(/^\+/,'').replace(/\+/g,' + ').replace(/-/g,' − ').trim()||'0'};
+const pl=(c,x='x')=>{const n=c.length-1;const s=c.map((a,i)=>{const p=n-i;return Math.abs(a)>1e-9?(a<0?'-':'+')+(Math.abs(Math.abs(a)-1)<1e-8&&p?'':fmt(Math.abs(a)))+(p?x+(p>1?'^'+p:''):''):''}).join('');return s.replace(/^\+/,'').replace(/\+/g,' + ').replace(/-/g,' − ').trim()||'0'};
 const pe=(c,x)=>c.reduce((s,a)=>s*x+a,0),pd=c=>c.slice(0,-1).map((a,i)=>a*(c.length-1-i)),pint=c=>c.map((a,i)=>a/(c.length-i)).concat(0);
 function mk(e,vs){let s=e.replace(/(\d)\s*([a-zA-Z(])/g,'$1*$2').replace(/\)\s*([a-zA-Z\d(])/g,')*$1').replace(/\^/g,'**').replace(/\bln\b/g,'log').replace(/\bpi\b/gi,'PI');
 const t=s.replace(/\b(sin|cos|tan|sqrt|exp|log|abs|PI|E)\b/g,'').replace(new RegExp('\\b('+vs.join('|')+')\\b','g'),'');
@@ -36,10 +37,266 @@ need(/^[\d\s+\-*\/().,]*$/.test(t),'Ekspresi mengandung karakter/fungsi yang tid
 try{return new Function(...vs,'with(Math){return '+s+'}')}catch(x){throw Error('Sintaks ekspresi salah')}}
 const list=s=>{const a=s.split(/[,;\s]+/).filter(Boolean).map(Number);need(a.length&&a.every(isFinite),'Daftar harus berupa angka dipisah koma');return a};
 const sim=(K,wn,z,T)=>{const N=3000,dt=T/N;let y=0,v=0;const A=[0];for(let i=0;i<N;i++){v+=(K*wn*wn-2*z*wn*v-wn*wn*y)*dt;y+=v*dt;A.push(y)}return t=>A[Math.min(N,Math.round(t/dt))]};
+
+/* ===== MESIN POLINOMIAL & PECAHAN PARSIAL MENTAH (A, B, C, D, E, ...) ===== */
+// Representasi polinomial: indeks 0 = pangkat tertinggi (konsisten dengan pd, pint, pe)
+const pTrim=p=>{const q=p.map(v=>Math.abs(v)<1e-10?0:v);while(q.length>1&&Math.abs(q[0])<1e-10)q.shift();return q.length?q:[0]};
+const pAdd=(a,b)=>{const n=Math.max(a.length,b.length),aa=Array(n-a.length).fill(0).concat(a),bb=Array(n-b.length).fill(0).concat(b);return pTrim(aa.map((v,i)=>v+bb[i]))};
+const pSub=(a,b)=>{const n=Math.max(a.length,b.length),aa=Array(n-a.length).fill(0).concat(a),bb=Array(n-b.length).fill(0).concat(b);return pTrim(aa.map((v,i)=>v-bb[i]))};
+const pScale=(a,k)=>pTrim(a.map(v=>v*k));
+const pMul=(a,b)=>{const out=Array(a.length+b.length-1).fill(0);for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)out[i+j]+=a[i]*b[j];return pTrim(out)};
+const pPow=(a,e)=>{let r=[1];for(let i=0;i<e;i++)r=pMul(r,a);return r};
+function pDiv(num,den){
+  let rem=pTrim(num);const d=pTrim(den);
+  need(!(d.length===1&&Math.abs(d[0])<1e-10),'Penyebut tidak boleh 0');
+  if(rem.length<d.length)return{q:[0],r:rem};
+  const q=Array(rem.length-d.length+1).fill(0),lead=d[0];
+  for(let i=0;i<=rem.length-d.length;i++){
+    const c=rem[i]/lead;q[i]=c;
+    for(let j=0;j<d.length;j++)rem[i+j]-=c*d[j];
+    rem=pTrim(rem);
+  }
+  return{q:pTrim(q),r:rem};
+}
+function parseLinearTerm(tok){
+  let s=tok.trim().replace(/\s+/g,'');
+  if(!s.includes('x')){const v=Number(s);need(isFinite(v)&&v!==0,`Faktor konstanta "${tok}" tidak valid`);return[v]}
+  const m=s.match(/^([+-]?\d*\.?\d*)x(?:\^(\d+))?([+-]\d+\.?\d*)?$/);
+  need(m,`Tidak bisa membaca suku/faktor "${tok}"`);
+  let a=m[1]===''||m[1]==='+'?1:m[1]==='-'?-1:Number(m[1]);
+  need(isFinite(a),'Koefisien x tidak valid');
+  const deg=m[2]?parseInt(m[2],10):1;
+  const c0=m[3]?Number(m[3]):0;
+  need(isFinite(c0),'Konstanta tidak valid');
+  if(deg===1)return pTrim([a,c0]);
+  const out=Array(deg+1).fill(0);out[0]=a;out[out.length-1]=c0;return pTrim(out);
+}
+function parsePolyRaw(raw){
+  let s=raw.trim().replace(/−/g,'-').replace(/\s+/g,'');
+  need(s.length>0,'Ekspresi polinomial kosong');
+  // Jika bentuk perkalian/pangkat tanda kurung seperti (x+4)(2x-3)(3x+1) atau (2x-3)^2 atau (x+1)(x^2+5x-2)
+  const grpRe=/^\(([^()]+)\)(?:\^(\d+))?/;
+  if(s.startsWith('(')){
+    let rest=s,prod=[1],matchedAny=false;
+    while(rest.length>0){
+      if(rest.startsWith('*'))rest=rest.slice(1);
+      const m=rest.match(grpRe);
+      if(!m){matchedAny=false;break}
+      matchedAny=true;
+      const inner=parsePolyRaw(m[1]),pw=m[2]?parseInt(m[2],10):1;
+      need(pw>=1&&pw<=8,'Pangkat faktor harus 1–8');
+      prod=pMul(prod,pPow(inner,pw));
+      rest=rest.slice(m[0].length);
+    }
+    if(matchedAny&&rest.length===0)return pTrim(prod);
+  }
+  if(s.startsWith('(')&&s.endsWith(')'))s=s.slice(1,-1);
+  s=s.replace(/(\d)(x)/gi,'$1*$2').replace(/(\d)\(/g,'$1*(').replace(/\)\(/g,')*(');
+  const terms=s.replace(/-/g,'+-').split('+').filter(Boolean);
+  let acc=[0];
+  for(const t of terms){
+    const clean=t.replace(/\*/g,'');
+    if(!clean.includes('x')){
+      const v=Number(clean);need(isFinite(v),`Angka tidak valid: "${t}"`);
+      acc=pAdd(acc,[v]);
+    }else{
+      const idxX=clean.indexOf('x');
+      const cStr=clean.slice(0,idxX);
+      const pStr=clean.slice(idxX+1);
+      const coeff=cStr===''||cStr==='+'?1:cStr==='-'?-1:Number(cStr);
+      need(isFinite(coeff),`Koefisien tidak valid: "${t}"`);
+      let deg=1;
+      if(pStr){need(pStr.startsWith('^'),`Format pangkat salah: "${t}"`);deg=parseInt(pStr.slice(1),10);need(Number.isInteger(deg)&&deg>=0&&deg<=12,`Pangkat tidak valid: "${t}"`)}
+      const arr=Array(deg+1).fill(0);arr[0]=coeff;
+      acc=pAdd(acc,arr);
+    }
+  }
+  return pTrim(acc);
+}
+const gcd=(a,b)=>{a=Math.abs(Math.round(a));b=Math.abs(Math.round(b));while(b)[a,b]=[b,a%b];return a||1};
+const divs=n=>{const k=Math.abs(Math.round(n))||1,out=new Set();for(let d=1;d*d<=k;d++)if(k%d===0){out.add(d);out.add(k/d)}return[...out]};
+function factorDenRaw(denPoly){
+  let rem=pTrim(denPoly);
+  const linMap=new Map(); // key "a|b" -> {a,b,mult,poly:[a,b]}
+  const addLin=(a,b)=>{
+    const g=gcd(a,b);let na=a/g,nb=b/g;
+    if(na<0){na=-na;nb=-nb}
+    const key=`${na}|${nb}`;
+    const prev=linMap.get(key)||{a:na,b:nb,mult:0,poly:pTrim([na,nb])};
+    prev.mult++;linMap.set(key,prev);
+  };
+  let progress=true;
+  while(rem.length-1>=1&&progress){
+    progress=false;
+    if(rem.length===2){addLin(rem[0],rem[1]);rem=[1];break}
+    if(rem.every(v=>Math.abs(v-Math.round(v))<1e-6)){
+      const ir=rem.map(Math.round);
+      const cLast=ir[ir.length-1]||1,cLead=ir[0];
+      const pList=divs(cLast),qList=divs(cLead);
+      const cand=[];
+      for(const p of pList)for(const q of qList){const g=gcd(p,q);cand.push([p/g,q/g],[-p/g,q/g])}
+      for(const[rp,rq]of cand){
+        const rVal=rp/rq;
+        if(Math.abs(pe(rem,rVal))<1e-7){
+          const fPoly=pTrim([rq,-rp]);
+          const{q,r}=pDiv(rem,fPoly);
+          if(r.every(v=>Math.abs(v)<1e-7)){addLin(rq,-rp);rem=q;progress=true;break}
+        }
+      }
+    }
+  }
+  const remTrim=pTrim(rem);
+  const quad=remTrim.length>=3?remTrim:null;
+  return{linear:[...linMap.values()],quad,remConst:quad?1:remTrim[0]};
+}
+function solveLin(A,b){
+  const n=b.length,M=A.map((row,i)=>[...row,b[i]]);
+  for(let c=0;c<n;c++){
+    let piv=c;for(let r=c+1;r<n;r++)if(Math.abs(M[r][c])>Math.abs(M[piv][c]))piv=r;
+    [M[c],M[piv]]=[M[piv],M[c]];
+    need(Math.abs(M[c][c])>1e-9,'Sistem persamaan koefisien tidak memiliki solusi tunggal');
+    const pv=M[c][c];for(let j=c;j<=n;j++)M[c][j]/=pv;
+    for(let r=0;r<n;r++)if(r!==c){const f=M[r][c];for(let j=c;j<=n;j++)M[r][j]-=f*M[c][j]}
+  }
+  return M.map(row=>Math.abs(row[n])<1e-8?0:+row[n].toFixed(6));
+}
+function fmtFrac(n){
+  if(Math.abs(n)<1e-8)return '0';
+  if(Math.abs(n-Math.round(n))<1e-7)return String(Math.round(n));
+  for(let d=2;d<=24;d++){const num=n*d;if(Math.abs(num-Math.round(num))<1e-6){const rn=Math.round(num),g=gcd(rn,d);return `${rn/g}/${d/g}`}}
+  return fmt(n);
+}
+function runPartialRaw(s_num,s_den){
+  const P0=parsePolyRaw(s_num),Q0=parsePolyRaw(s_den);
+  need(!(Q0.length===1&&Math.abs(Q0[0])<1e-10),'Penyebut tidak boleh 0');
+  const steps=[],g=[`Pembilang P(x) = ${pl(P0)} (derajat ${P0.length-1})`,`Penyebut Q(x) = ${pl(Q0)} (derajat ${Q0.length-1})`];
+  let workP=P0,quot=[0];
+  if(P0.length-1>=Q0.length-1){
+    const dv=pDiv(P0,Q0);quot=dv.q;workP=dv.r;
+    steps.push(`Pembagian polinomial (deg P ≥ deg Q): hasil bagi = ${pl(quot)}, sisa = ${pl(workP)}`);
+    steps.push(`Bentuk awal: ${pl(quot)} + (${pl(workP)}) / (${pl(Q0)})`);
+  }else{
+    steps.push('Derajat pembilang < derajat penyebut → pecahan sejati, langsung dekomposisi.');
+  }
+  const fac=factorDenRaw(Q0);
+  const fStrs=[];
+  for(const lf of fac.linear){const bStr=`(${pl(lf.poly)})`;fStrs.push(lf.mult>1?`${bStr}^${lf.mult}`:bStr)}
+  if(fac.quad)fStrs.push(`(${pl(fac.quad)})`);
+  need(fStrs.length>0,'Penyebut tidak dapat difaktorkan menjadi faktor linear/kuadrat');
+  steps.push(`Faktorisasi penyebut: Q(x) = ${fStrs.join(' · ')}`);
+
+  // Susun suku pecahan parsial dengan koefisien A, B, C, D, E, ...
+  const SYM='ABCDEFGHIJKLMNOPQRSTUVWXYZ';let si=0;const nextS=()=>SYM[si++]||`K${si}`;
+  const terms=[];
+  for(const lf of fac.linear){
+    for(let k=1;k<=lf.mult;k++){
+      const sym=nextS(),subDen=pPow(lf.poly,k);
+      terms.push({kind:'lin',sym,denPoly:subDen,tmpl:`${sym}/(${pl(subDen)})`});
+    }
+  }
+  if(fac.quad){
+    const s1=nextS(),s2=nextS();
+    terms.push({kind:'quad',s1,s2,denPoly:fac.quad,tmpl:`(${s1}x + ${s2})/(${pl(fac.quad)})`});
+  }
+  const allSyms=[];terms.forEach(t=>t.kind==='lin'?allSyms.push(t.sym):allSyms.push(t.s1,t.s2));
+  steps.push(`Bentuk dekomposisi (koefisien ${allSyms.join(', ')}): ${terms.map(t=>t.tmpl).join(' + ')}`);
+
+  // Kalikan kedua ruas dengan Q0 agar pembilang setara
+  const prodItems=[];
+  for(const t of terms){
+    const{q:multP}=pDiv(Q0,t.denPoly);
+    if(t.kind==='lin')prodItems.push({sym:t.sym,poly:multP});
+    else{prodItems.push({sym:t.s1,poly:pMul([1,0],multP)});prodItems.push({sym:t.s2,poly:multP})}
+  }
+  const maxD=Math.max(workP.length-1,Q0.length-1);
+  // Bentuk polinomial ruas kanan dalam bentuk [pangkat tertinggi ... konstanta]
+  const rhsPoly=[];
+  for(let idx=0;idx<=maxD;idx++){
+    const revIdx=maxD-idx;
+    const row=Array(allSyms.length).fill(0);
+    for(const it of prodItems){
+      const pIdx=it.poly.length-1-revIdx;
+      if(pIdx>=0)row[allSyms.indexOf(it.sym)]+=it.poly[pIdx];
+    }
+    const targetIdx=workP.length-1-revIdx;
+    const targetVal=targetIdx>=0?workP[targetIdx]:0;
+    rhsPoly.push({pow:revIdx,row,target:targetVal});
+  }
+  // Coba substitusi nilai x strategis untuk faktor linear non-berulang agar langkah lebih informatif
+  for(const lf of fac.linear){
+    if(Math.abs(lf.a)>1e-9){
+      const xSub=-lf.b/lf.a;
+      const lhsVal=pe(workP,xSub);
+      const rhsVal=pe(Q0,xSub);
+      steps.push(`Uji x = ${fmtFrac(xSub)} (pembuat nol ${pl(lf.poly)}): P(${fmtFrac(xSub)}) = ${fmtFrac(lhsVal)}`);
+    }
+  }
+  // Bangun sistem persamaan linier dari kesamaan koefisien x^k
+  const eqRows=[],eqTargets=[],eqDesc=[];
+  for(const item of rhsPoly){
+    const parts=[];
+    item.row.forEach((c,j)=>{if(Math.abs(c)>1e-9)parts.push(`${fmtFrac(c)}${allSyms[j]}`)});
+    if(parts.length||Math.abs(item.target)>1e-9){
+      eqDesc.push(`x^${item.pow}: ${parts.join(' + ')||'0'} = ${fmtFrac(item.target)}`);
+    }
+    if(parts.some(Boolean)){eqRows.push(item.row);eqTargets.push(item.target)}
+  }
+  steps.push('Samakan koefisien pangkat x: '+eqDesc.join(' ; '));
+  // Pilih baris independen hingga jumlah koefisien
+  const selA=[],selB=[];
+  for(let i=0;i<eqRows.length&&selA.length<allSyms.length;i++){
+    const candA=[...selA,eqRows[i]],candB=[...selB,eqTargets[i]];
+    // Cek determinan / rank dengan mencoba solveLin pada subset
+    if(candA.length===allSyms.length){
+      try{solveLin(candA,candB);selA.push(eqRows[i]);selB.push(eqTargets[i])}catch(_){}
+    }else{selA.push(eqRows[i]);selB.push(eqTargets[i])}
+  }
+  need(selA.length===allSyms.length,'Tidak cukup persamaan independen untuk menentukan seluruh koefisien');
+  const sol=solveLin(selA,selB);
+  const valMap={};allSyms.forEach((s,i)=>valMap[s]=sol[i]);
+  steps.push('Penyelesaian koefisien: '+allSyms.map(s=>`${s} = ${fmtFrac(valMap[s])}`).join(', '));
+
+  const finalParts=[];
+  if(quot.some(v=>Math.abs(v)>1e-9))finalParts.push(pl(quot));
+  for(const t of terms){
+    if(t.kind==='lin'){
+      const v=valMap[t.sym];
+      if(Math.abs(v)>1e-9)finalParts.push(`(${fmtFrac(v)}) / (${pl(t.denPoly)})`);
+    }else{
+      const v1=valMap[t.s1],v2=valMap[t.s2];
+      if(Math.abs(v1)>1e-9||Math.abs(v2)>1e-9){
+        const linNum=pTrim([v1,v2]);
+        finalParts.push(`(${pl(linNum)}) / (${pl(t.denPoly)})`);
+      }
+    }
+  }
+  const ansExpr=finalParts.join(' + ').replace(/\+ \(\-/g,'− (')||'0';
+  steps.push(`Bentuk pecahan parsial akhir: ${ansExpr}`);
+
+  return{
+    g:[`P(x) = ${pl(P0)}`,`Q(x) = ${pl(Q0)}`],
+    f:['P(x)/Q(x) = H(x) + Σ[A_k/(ax+b)^k] + Σ[(Cx+D)/(px²+qx+r)]','Samakan pembilang & selesaikan koefisien A, B, C, D, E, ...'],
+    s:steps,
+    r:allSyms.map(s=>[s,fmtFrac(valMap[s]),'']),
+    note:`Hasil: ${ansExpr}`,
+    viz:{pf:{num:pl(workP),den:fStrs.join('·'),terms:allSyms.map(s=>`${s}=${fmtFrac(valMap[s])}`)}}
+  };
+}
+
 const R=[];const add=(k,n,l,ex,run)=>R.push({k,n,ex,run,l:l.split('|').map(s=>{const[kk,r]=s.split('=');const[lab,op]=r.split(':');return[kk,lab,op&&op.split(';')]})});
 const M9=[...Array(9)].map((_,i)=>`m${i+1}=a${(i/3|0)+1}${i%3+1}`).join('|'),d3=m=>m[0]*(m[4]*m[8]-m[5]*m[7])-m[1]*(m[3]*m[8]-m[5]*m[6])+m[2]*(m[3]*m[7]-m[4]*m[6]),g9=v=>[1,2,3,4,5,6,7,8,9].map(i=>v['m'+i]);
 const A1='Aljabar & Pecahan Parsial',A2='Kalkulus',A3='Persamaan Diferensial',A4='Matriks',A5='Vektor & Trigonometri',A6='Laplace & Fourier',A7='Numerik & Statistik',A8='Teknik Elektro',A9='Material & Dinamika',B1='Termo & Fluida',B2='CAD/CAE';
-/* ===== ALJABAR ===== */
+
+/* ===== ALJABAR & PECAHAN PARSIAL MENTAH ===== */
+add(A1,'Pecahan Parsial Mentah (A, B, C, D, E, ...)','s_num=Pembilang P(x)|s_den=Penyebut Q(x)',[
+  ['8x^2 + 27x + 13','x^3 + 4x^2 + x - 6'],
+  ['4x^2 + 9x - 73','x^2 + x - 20'],
+  ['3x^2 - 34x + 97','(x - 5)^3'],
+  ['6x^2 + 19x - 11','(x + 1)(x^2 + 5x - 2)'],
+  ['9x^2 - 16x + 34','(x + 4)(2x - 3)(3x + 1)'],
+  ['13x - 7','10x^2 - 11x + 3'],
+  ['x - 14','x^2 - 10x + 24']
+],({s_num,s_den})=>runPartialRaw(s_num,s_den));
 add(A1,'Evaluasi Ekspresi Bervariabel','s_e=Ekspresi (x,y,z; ^ pangkat)|x=x|y=y|z=z',[['x^2+3*x*y-z/2',2,3,4],['(x+y)^2/(z-1)',3,2,5]],({s_e,x,y,z})=>{const val=mk(s_e,['x','y','z'])(x,y,z);need(isFinite(val),'Hasil tidak terdefinisi (pembagi nol / domain tidak valid)');
 return{g:[`x = ${x}, y = ${y}, z = ${z}`],f:['Substitusi variabel, lalu urutan operasi PEMDAS: kurung → pangkat → × ÷ → + −'],s:['Ekspresi   : '+s_e,'Substitusi : '+s_e.replace(/\b[xyz]\b/g,m=>`(${({x,y,z})[m]})`),'Hitung dari kurung terdalam ke luar'],r:[['Hasil',val,'']]}});
 add(A1,'Persamaan Linear ax + b = c','a=a|b=b|c=c',[[2,3,11],[5,-4,16]],({a,b,c})=>{need(a!==0,'a tidak boleh 0 (bukan persamaan linear)');const x=(c-b)/a;
@@ -50,21 +307,18 @@ else{const re=-b/(2*a),im=Math.abs(Math.sqrt(-D)/(2*a));s.push('Δ < 0 → akar 
 const xv=-b/(2*a);return{g:[`a=${a}, b=${b}, c=${c}`],f:['x₁,₂ = (−b ± √Δ)/2a, Δ = b² − 4ac','Δ>0: dua akar real; Δ=0: akar kembar; Δ<0: akar kompleks'],s,r,viz:{fns:[t=>a*t*t+b*t+c],x0:xv-5,x1:xv+5},note:D>0?'Dua akar real berbeda.':D==0?'Akar kembar (parabola menyinggung sumbu-x).':'Parabola tidak memotong sumbu-x.'}});
 add(A1,'SPLDV (2 variabel)','a1=a₁|b1=b₁|c1=c₁|a2=a₂|b2=b₂|c2=c₂',[[2,1,5,1,-1,1],[3,2,12,1,-1,1]],({a1,b1,c1,a2,b2,c2})=>{const D=a1*b2-a2*b1;need(D!==0,'Determinan = 0: tidak ada solusi tunggal');const Dx=c1*b2-c2*b1,Dy=a1*c2-a2*c1,x=Dx/D,y=Dy/D;
 return{g:[`${a1}x + ${b1}y = ${c1}`,`${a2}x + ${b2}y = ${c2}`],f:['Aturan Cramer: x = Dx/D, y = Dy/D'],s:[`D = a₁b₂ − a₂b₁ = ${fmt(D)}`,`Dx = c₁b₂ − c₂b₁ = ${fmt(Dx)}`,`Dy = a₁c₂ − a₂c₁ = ${fmt(Dy)}`,`x = ${fmt(Dx)}/${fmt(D)} = ${fmt(x)}; y = ${fmt(Dy)}/${fmt(D)} = ${fmt(y)}`],r:[['x',x,''],['y',y,'']],viz:{vec:[[x,y,'(x,y)']]}}});
-add(A1,'Pecahan Parsial: faktor linear berbeda','P=P|Q=Q|a=a|b=b',[[3,5,1,-2],[1,7,2,-3]],({P,Q,a,b})=>{need(a!==b,'a dan b harus berbeda');const A=(P*a+Q)/(a-b),B=(P*b+Q)/(b-a);
-return{g:[`(${P}x + ${Q}) / ((x − ${a})(x − ${b}))`],f:['Bentuk umum: (Px+Q)/((x−a)(x−b)) = A/(x−a) + B/(x−b)','Samakan penyebut: Px+Q = A(x−b) + B(x−a)'],s:[`x = a = ${a}: ${fmt(P*a+Q)} = A(${a}−${b}) → A = ${fmt(A)}`,`x = b = ${b}: ${fmt(P*b+Q)} = B(${b}−${a}) → B = ${fmt(B)}`,`Cek koefisien x: A + B = ${fmt(A+B)} = P ✓`,`Hasil: ${fmt(A)}/(x − ${a}) + ${fmt(B)}/(x − ${b})`],r:[['A',A,''],['B',B,'']]}});
-add(A1,'Pecahan Parsial: faktor linear berulang','P=P|Q=Q|R=R|a=a|b=b',[[1,2,3,1,-2],[2,0,1,0,3]],({P,Q,R,a,b})=>{need(a!==b,'a dan b harus berbeda');const C=(P*b*b+Q*b+R)/((b-a)**2),B=(P*a*a+Q*a+R)/(a-b),A=P-C;
-return{g:[`(${P}x² + ${Q}x + ${R}) / ((x − ${a})²(x − ${b}))`],f:['Bentuk umum: A/(x−a) + B/(x−a)² + C/(x−b)','Penyebut sama: Px²+Qx+R = A(x−a)(x−b) + B(x−b) + C(x−a)²'],s:[`x = b = ${b}: ${fmt(P*b*b+Q*b+R)} = C(${b}−${a})² → C = ${fmt(C)}`,`x = a = ${a}: ${fmt(P*a*a+Q*a+R)} = B(${a}−${b}) → B = ${fmt(B)}`,`Koefisien x²: A + C = P → A = ${P} − ${fmt(C)} = ${fmt(A)}`],r:[['A',A,''],['B',B,''],['C',C,'']],note:`Hasil: ${fmt(A)}/(x−${a}) + ${fmt(B)}/(x−${a})² + ${fmt(C)}/(x−${b})`}});
-add(A1,'Pecahan Parsial: faktor kuadrat tak-terfaktorisasi','P=P|Q=Q|R=R|a=a|b=b (x²+bx+c)|c=c',[[1,2,3,1,0,1],[2,1,4,-1,1,2]],({P,Q,R,a,b,c})=>{need(b*b-4*c<0,'Faktor kuadrat harus tak-terfaktorisasi (b² − 4c < 0)');const k=a*a+a*b+c,A=(P*a*a+Q*a+R)/k,B=P-A,C=Q-A*b+a*B;
-return{g:[`(${P}x² + ${Q}x + ${R}) / ((x − ${a})(x² + ${b}x + ${c}))`],f:['Bentuk umum: A/(x−a) + (Bx+C)/(x²+bx+c)','Px²+Qx+R = A(x²+bx+c) + (Bx+C)(x−a)'],s:[`x = a: ${fmt(P*a*a+Q*a+R)} = A(a²+ab+c) = A·${fmt(k)} → A = ${fmt(A)}`,`Koef. x²: A + B = P → B = ${fmt(B)}`,`Koef. x: Ab − aB + C = Q → C = ${fmt(C)}`],r:[['A',A,''],['B',B,''],['C',C,'']],note:`Hasil: ${fmt(A)}/(x−${a}) + (${fmt(B)}x + ${fmt(C)})/(x²+${b}x+${c})`}});
+
 /* ===== KALKULUS ===== */
 add(A2,'Turunan, Integral, Kecepatan & Percepatan','s_c=Koef. s(t) (pangkat tertinggi→konstanta)|t=t|a=batas bawah|b=batas atas',[['1,-6,9,2',2,0,3],['2,0,-3,5,1',1,0,2]],({s_c,t,a,b})=>{const c=list(s_c),v=pd(c),ac=pd(v),F=pint(c),I=pe(F,b)-pe(F,a);
 return{g:[`Koefisien: ${c.join(', ')}`,`t = ${t}; integral dari ${a} sampai ${b}`],f:['v = ds/dt, a = dv/dt; d/dt(tⁿ) = n·tⁿ⁻¹; ∫tⁿ dt = tⁿ⁺¹/(n+1)','∫ₐᵇ s dt = F(b) − F(a)'],s:[`s(t) = ${pl(c,'t')}`,`v(t) = ds/dt = ${pl(v,'t')}`,`a(t) = dv/dt = ${pl(ac,'t')}`,`F(t) = ∫s dt = ${pl(F,'t')} + C`,`s(${t}) = ${fmt(pe(c,t))}; v(${t}) = ${fmt(pe(v,t))}; a(${t}) = ${fmt(pe(ac,t))}`,`F(${b}) − F(${a}) = ${fmt(pe(F,b))} − ${fmt(pe(F,a))}`],r:[['s(t)',pe(c,t),''],['v(t)',pe(v,t),''],['a(t)',pe(ac,t),''],['∫s dt',I,'']],viz:{fns:[x=>pe(c,x),x=>pe(v,x)],x0:Math.min(0,a,t),x1:Math.max(b,t,Math.min(0,a,t)+1)},note:'Cyan: s(t), kuning: v(t). Luas bawah kurva = integral tentu.'}});
+
 /* ===== ODE ===== */
 add(A3,'Pegas-Massa-Peredam  m·x″ + c·x′ + k·x = 0','m=m (kg)|c=c (N·s/m)|k=k (N/m)|x0=x₀ (m)',[[2,4,50,0.1],[1,20,25,0.1],[1,12,25,0.1]],({m,c,k,x0})=>{need(m>0&&k>0&&c>=0,'m, k harus > 0 dan c ≥ 0');const wn=Math.sqrt(k/m),cc=2*Math.sqrt(k*m),z=c/cc,wd=wn*Math.sqrt(Math.max(0,1-z*z));let reg,fn;
 if(z<1){reg='Underdamped (ζ<1)';fn=t=>Math.exp(-z*wn*t)*x0*(Math.cos(wd*t)+z*wn/wd*Math.sin(wd*t))}else if(z==1){reg='Critically damped (ζ=1)';fn=t=>x0*Math.exp(-wn*t)*(1+wn*t)}else{reg='Overdamped (ζ>1)';const q=wn*Math.sqrt(z*z-1),s1=-z*wn+q,s2=-z*wn-q;fn=t=>x0*(s2*Math.exp(s1*t)-s1*Math.exp(s2*t))/(s2-s1)}
 return{g:[`m=${m} kg, c=${c} N·s/m, k=${k} N/m, x₀=${x0} m, v₀=0`],f:['ωn = √(k/m); c_c = 2√(km); ζ = c/c_c','Persamaan karakteristik: m·r² + c·r + k = 0 → r = −ζωn ± ωn√(ζ²−1)'],s:[`ωn = √(${k}/${m}) = ${fmt(wn)} rad/s  (fn = ${fmt(wn/2/PI)} Hz)`,`c_c = 2√(${k}·${m}) = ${fmt(cc)} N·s/m`,`ζ = ${c}/${fmt(cc)} = ${fmt(z)} → ${reg}`,z<1?`ωd = ωn√(1−ζ²) = ${fmt(wd)} rad/s`:'Akar karakteristik real (tidak berosilasi)'],r:[['ωn',wn,'rad/s'],['ζ',z,''],['ωd',wd,'rad/s']],viz:{fns:[fn],x0:0,x1:z>0?Math.min(6/(z*wn),25/wn):25/wn},note:'Rezim: '+reg}});
 add(A3,'Hukum Pendinginan Newton  dT/dt = −k(T − Tamb)','T0=T₀ (°C)|Tamb=T lingkungan (°C)|k=k (1/menit)|t=t (menit)',[[90,25,0.1,10],[200,30,0.05,20]],({T0,Tamb,k,t})=>{need(k>0,'k harus > 0');const T=Tamb+(T0-Tamb)*Math.exp(-k*t);
 return{g:[`T₀=${T0} °C (${fmt(T0+273.15)} K), Tamb=${Tamb} °C, k=${k}/menit, t=${t} menit`],f:['Pisah variabel: dT/(T−Tamb) = −k dt → ln|T−Tamb| = −kt + C','T(t) = Tamb + (T₀ − Tamb)·e^(−kt); τ = 1/k'],s:[`T₀ − Tamb = ${fmt(T0-Tamb)}`,`e^(−kt) = e^(−${k}·${t}) = ${fmt(Math.exp(-k*t))}`,`T = ${Tamb} + ${fmt(T0-Tamb)}×${fmt(Math.exp(-k*t))} = ${fmt(T)} °C`],r:[['T(t)',T,'°C'],['τ',1/k,'menit']],viz:{fns:[x=>Tamb+(T0-Tamb)*Math.exp(-k*x)],x0:0,x1:Math.max(t,5/k)},note:'Setelah ≈ 5τ suhu mendekati suhu lingkungan.'}});
+
 /* ===== MATRIKS ===== */
 add(A4,'Determinan & Invers Matriks 3×3',M9,[[2,1,3,0,-1,4,1,2,5],[1,2,3,0,1,4,5,6,0]],v=>{const m=g9(v),D=d3(m);const mn=(r,c)=>{const q=[];for(let i=0;i<3;i++)for(let j=0;j<3;j++)if(i!=r&&j!=c)q.push(m[i*3+j]);return q[0]*q[3]-q[1]*q[2]};const cof=m.map((_,n)=>((n/3|0)+n%3)%2?-mn(n/3|0,n%3):mn(n/3|0,n%3));const row=(a,i)=>a.slice(i*3,i*3+3).map(fmt).join('   ');
 const s=[`det = a₁₁(a₂₂a₃₃−a₂₃a₃₂) − a₁₂(a₂₁a₃₃−a₂₃a₃₁) + a₁₃(a₂₁a₃₂−a₂₂a₃₁)`,`det = ${m[0]}(${fmt(m[4]*m[8]-m[5]*m[7])}) − ${m[1]}(${fmt(m[3]*m[8]-m[5]*m[6])}) + ${m[2]}(${fmt(m[3]*m[7]-m[4]*m[6])}) = ${fmt(D)}`,'Matriks kofaktor:',...[0,1,2].map(i=>'  ['+row(cof,i)+']')];let note;
@@ -73,6 +327,7 @@ return{g:['Matriks A: '+[0,1,2].map(i=>'['+row(m,i)+']').join(' ')],f:['Ekspansi
 add(A4,'SPL 3×3 (Aturan Cramer)',M9+'|r1=b₁|r2=b₂|r3=b₃',[[2,1,-1,-3,-1,2,-2,1,2,8,-11,-3]],v=>{const m=g9(v),r=[v.r1,v.r2,v.r3],D=d3(m);need(D!==0,'det(A) = 0: sistem tidak punya solusi tunggal');
 const mx=[r[0],m[1],m[2],r[1],m[4],m[5],r[2],m[7],m[8]],my=[m[0],r[0],m[2],m[3],r[1],m[5],m[6],r[2],m[8]],mz=[m[0],m[1],r[0],m[3],m[4],r[1],m[6],m[7],r[2]],[x,y,z]=[mx,my,mz].map(q=>d3(q)/D);
 return{g:[0,1,2].map(i=>`${m[i*3]}x + ${m[i*3+1]}y + ${m[i*3+2]}z = ${r[i]}`),f:['x = Dx/D, y = Dy/D, z = Dz/D (kolom diganti vektor b)'],s:[`D = ${fmt(D)}`,`Dx = ${fmt(d3(mx))}, Dy = ${fmt(d3(my))}, Dz = ${fmt(d3(mz))}`,`x = ${fmt(x)}, y = ${fmt(y)}, z = ${fmt(z)}`],r:[['x',x,''],['y',y,''],['z',z,'']]}});
+
 /* ===== VEKTOR ===== */
 add(A5,'Penguraian Gaya & Momen','F=F (N)|th=θ (derajat)|r=lengan r (m)',[[100,30,0.5],[250,120,1.2]],({F,th,r})=>{const Fx=F*Math.cos(rad(th)),Fy=F*Math.sin(rad(th)),tau=r*F*Math.sin(rad(th));
 return{g:[`F=${F} N, θ=${th}° = ${fmt(rad(th))} rad, r=${r} m`],f:['Fx = F cosθ, Fy = F sinθ, τ = r·F·sinθ'],s:[`Fx = ${F}·cos(${th}°) = ${fmt(Fx)} N`,`Fy = ${F}·sin(${th}°) = ${fmt(Fy)} N`,`Cek: √(Fx²+Fy²) = ${fmt(Math.hypot(Fx,Fy))} N`,`τ = ${r}·${F}·sin(${th}°) = ${fmt(tau)} N·m`],r:[['Fx',Fx,'N'],['Fy',Fy,'N'],['τ',tau,'N·m']],viz:{vec:[[Fx,0,'Fx'],[0,Fy,'Fy'],[Fx,Fy,'F']]}}});
@@ -80,6 +335,7 @@ add(A5,'Resultan Dua Gaya','F1=F₁ (N)|a1=θ₁ (°)|F2=F₂ (N)|a2=θ₂ (°)'
 return{g:[`F₁=${F1} N ∠${a1}°, F₂=${F2} N ∠${a2}°`],f:['Rx = ΣFx, Ry = ΣFy, R = √(Rx²+Ry²), θ = atan2(Ry,Rx)'],s:[`F₁: (${fmt(x1)}, ${fmt(y1)}); F₂: (${fmt(x2)}, ${fmt(y2)})`,`Rx = ${fmt(X)}, Ry = ${fmt(Y)}`,`R = √(${fmt(X)}² + ${fmt(Y)}²) = ${fmt(Rr)} N`,`θ = atan2(${fmt(Y)}, ${fmt(X)}) = ${fmt(deg(Math.atan2(Y,X)))}°`],r:[['R',Rr,'N'],['θ',deg(Math.atan2(Y,X)),'°']],viz:{vec:[[x1,y1,'F₁'],[x2,y2,'F₂'],[X,Y,'R']]}}});
 add(A5,'Kinematika Benda Tegar (Rotasi)','n=n (rpm)|r=r (m)|al=α (rad/s²)',[[1500,0.2,10],[300,0.5,2]],({n,r,al})=>{const w=2*PI*n/60,v=w*r,ac=w*w*r,at=al*r,a=Math.hypot(ac,at);
 return{g:[`n=${n} rpm → ω = 2π·${n}/60 = ${fmt(w)} rad/s`,`r=${r} m, α=${al} rad/s²`],f:['v = ωr; a_c = ω²r; a_t = αr; a = √(a_c²+a_t²)'],s:[`v = ${fmt(w)}·${r} = ${fmt(v)} m/s (${fmt(v*3.6)} km/jam)`,`a_c = ${fmt(w)}²·${r} = ${fmt(ac)} m/s²`,`a_t = ${al}·${r} = ${fmt(at)} m/s²`,`a = √(${fmt(ac)}²+${fmt(at)}²) = ${fmt(a)} m/s²`],r:[['v',v,'m/s'],['a_c',ac,'m/s²'],['a_t',at,'m/s²'],['a',a,'m/s²']],viz:{vec:[[ac,0,'a_c'],[0,at,'a_t'],[ac,at,'a']]}}});
+
 /* ===== LAPLACE & FOURIER ===== */
 add(A6,'Transformasi Laplace Fungsi Dasar','o_f=Fungsi f(t):Konstanta;Ramp;Eksponensial;Sinus;Cosinus|K=K|p=a / ω',[['Eksponensial',3,2],['Sinus',2,5],['Ramp',4,1]],({o_f,K,p})=>{const i=['Konstanta','Ramp','Eksponensial','Sinus','Cosinus'].indexOf(o_f);if(i>=2)need(p!==0,'Parameter tidak boleh 0');
 const ft=['K','K·t','K·e^(−at)','K·sin(ωt)','K·cos(ωt)'][i],std=['1/s','1/s²','1/(s+a)','ω/(s²+ω²)','s/(s²+ω²)'][i],res=[`${K}/s`,`${K}/s²`,`${K}/(s+${p})`,`${K}·${p}/(s²+${p}²)`,`${K}·s/(s²+${p}²)`][i],fn=[t=>K,t=>K*t,t=>K*Math.exp(-p*t),t=>K*Math.sin(p*t),t=>K*Math.cos(p*t)][i];
@@ -90,6 +346,7 @@ add(A6,'Fungsi Alih Orde-2  Kωn²/(s²+2ζωn·s+ωn²)','K=K|wn=ωn (rad/s)|z=
 return{g:[`K=${K}, ωn=${wn} rad/s, ζ=${z}`],f:['G(s) = Kωn²/(s²+2ζωn·s+ωn²); pole: s = −ζωn ± ωn√(ζ²−1)'],s:[`Rezim: ${z==0?'tak teredam':z<1?'underdamped':z==1?'critically damped':'overdamped'}`,u?`ωd = ωn√(1−ζ²) = ${fmt(wd)} rad/s; tp = π/ωd = ${fmt(PI/wd)} s`:'Kedua pole real, tanpa overshoot',u?`Overshoot Mp = e^(−πζ/√(1−ζ²))×100% = ${fmt(Mp)}%`:'Mp = 0%',z>0?`t_s(2%) ≈ 4/(ζωn) = ${fmt(4/(z*wn))} s`:'Tidak pernah tunak (osilasi tetap)'],r:[['Mp',Mp,'%'],['ωd',wd,'rad/s']],viz:{fns:[sim(K,wn,z,Math.min(z>0?6/(z*wn):1e9,25/wn))],x0:0,x1:Math.min(z>0?6/(z*wn):1e9,25/wn)}}});
 add(A6,'Fourier & Respons Frekuensi (Filter Orde-1)','A=Amplitudo|f=f (Hz)|ph=Fasa φ (°)|K=Gain K|tau=τ (s)',[[5,50,0,1,0.005],[2,1000,30,1,0.0002]],({A,f,ph,K,tau})=>{need(f>0&&tau>=0,'f > 0, τ ≥ 0');const w=2*PI*f,H=K/Math.sqrt(1+(w*tau)**2),pa=-deg(Math.atan(w*tau));
 return{g:[`x(t) = ${A}·sin(2π·${f}t + ${ph}°); ω = 2π·${f} = ${fmt(w)} rad/s`],f:['T = 1/f; |H(jω)| = K/√(1+(ωτ)²); ∠H = −atan(ωτ)','Frekuensi potong ωc = 1/τ'],s:[`T = 1/${f} = ${fmt(1/f)} s`,`ωτ = ${fmt(w*tau)}`,`|H| = ${K}/√(1+${fmt((w*tau)**2)}) = ${fmt(H)}  (${fmt(20*Math.log10(H))} dB)`,`∠H = ${fmt(pa)}° → keluaran: ${fmt(A*H)}·sin(ωt + ${fmt(+ph+pa)}°)`],r:[['ω',w,'rad/s'],['T',1/f,'s'],['|H|',H,''],['Amp. keluaran',A*H,'']],viz:{fns:[t=>A*Math.sin(w*t+rad(ph)),t=>A*H*Math.sin(w*t+rad(ph+pa))],x0:0,x1:3/f},note:'Cyan: masukan, kuning: keluaran filter.'}});
+
 /* ===== NUMERIK & STATISTIK ===== */
 add(A7,'Newton-Raphson','s_f=f(x)|x0=Tebakan x₀|n=Maks iterasi|tol=Toleransi',[['x^3-2*x-5',2,20,0.00001],['cos(x)-x',1,20,0.000001]],({s_f,x0,n,tol})=>{need(n>=1&&n<=100&&tol>0,'Iterasi 1–100 dan toleransi > 0');const f=mk(s_f,['x']),d=x=>(f(x+1e-6)-f(x-1e-6))/2e-6;let x=x0,s=[],ok=0;
 for(let i=1;i<=n;i++){const fx=f(x),dx=d(x);need(isFinite(fx)&&Math.abs(dx)>1e-12,`f′(x) ≈ 0 / tak terdefinisi pada iterasi ${i}`);const xn=x-fx/dx;s.push(`i=${i}: x=${fmt(x)}, f=${fmt(fx)}, f′=${fmt(dx)} → x = ${fmt(xn)}`);if(Math.abs(xn-x)<tol){x=xn;ok=i;break}x=xn}
@@ -102,6 +359,7 @@ if(o_m=='Trapesium'){I=h*(y[0]/2+y.slice(1,n).reduce((p,q)=>p+q,0)+y[n]/2);s.pus
 return{g:[`f(x) = ${s_f}; [${a}, ${b}]; n=${n}`],f:[o_m=='Trapesium'?'Aturan trapesium: I ≈ h[f₀/2 + f₁+…+fₙ₋₁ + fₙ/2]':'Aturan Simpson 1/3: I ≈ (h/3)[f₀ + 4f₁ + 2f₂ + … + fₙ]'],s,r:[['I ≈',I,'']],viz:{fns:[f],x0:a,x1:b}}});
 add(A7,'Statistik & Kapabilitas Proses (Cp, Cpk)','s_d=Data (pisah koma)|lsl=LSL|usl=USL',[['10.1,10.3,9.9,10.0,10.2,10.4,9.8',9.5,10.5]],({s_d,lsl,usl})=>{const d=list(s_d),n=d.length;need(n>=2&&usl>lsl,'Min. 2 data dan USL > LSL');const m=d.reduce((p,q)=>p+q,0)/n,ss=d.reduce((p,q)=>p+(q-m)**2,0),va=ss/(n-1),sd=Math.sqrt(va);need(sd>0,'Standar deviasi = 0 (semua data sama)');const cp=(usl-lsl)/(6*sd),cpk=Math.min((usl-m)/(3*sd),(m-lsl)/(3*sd));
 return{g:[`n=${n}; LSL=${lsl}, USL=${usl}`],f:['x̄ = Σx/n; s² = Σ(x−x̄)²/(n−1); Cp = (USL−LSL)/6s; Cpk = min[(USL−x̄)/3s, (x̄−LSL)/3s]'],s:[`x̄ = ${fmt(m)}`,`Σ(x−x̄)² = ${fmt(ss)} → s² = ${fmt(va)}`,`s = ${fmt(sd)}`,`Cp = ${fmt(usl-lsl)}/(6×${fmt(sd)}) = ${fmt(cp)}`,`Cpk = ${fmt(cpk)}`],r:[['x̄',m,''],['s',sd,''],['Cp',cp,''],['Cpk',cpk,'']],note:cpk>=1.33?'Proses capable (Cpk ≥ 1,33).':cpk>=1?'Proses marginal (1 ≤ Cpk < 1,33).':'Proses belum capable (Cpk < 1).'}});
+
 /* ===== ELEKTRO ===== */
 add(A8,'Hukum Ohm & Daya','V=V (volt)|R=R (ohm)',[[12,6],[220,48.4]],({V,R})=>{need(R>0,'R harus > 0');const I=V/R,P=V*I;
 return{g:[`V=${V} V, R=${R} Ω`],f:['I = V/R; P = V·I = V²/R = I²R'],s:[`I = ${V}/${R} = ${fmt(I)} A`,`P = ${V}×${fmt(I)} = ${fmt(P)} W`,`Cek P = V²/R = ${fmt(V*V/R)} W`],r:[['I',I,'A'],['P',P,'W']],note:`P = ${fmt(P/1000)} kW`}});
@@ -111,6 +369,7 @@ add(A8,'Impedansi RLC Seri & Faktor Daya','R=R (Ω)|L=L (mH)|C=C (µF)|f=f (Hz)|
 return{g:[`L=${L} mH = ${L/1e3} H; C=${C} µF = ${C/1e6} F`,`f=${f} Hz → ω = ${fmt(2*PI*f)} rad/s`],f:['XL = ωL; XC = 1/(ωC); Z = √(R²+(XL−XC)²); θ = atan((XL−XC)/R)','I = V/Z; S = VI; P = S cosφ; Q = S sinφ'],s:[`XL = ${fmt(XL)} Ω; XC = ${fmt(XC)} Ω; X = ${fmt(X)} Ω`,`Z = √(${R}² + ${fmt(X)}²) = ${fmt(Z)} Ω ∠${fmt(deg(th))}°`,`I = ${V}/${fmt(Z)} = ${fmt(I)} A`,`cosφ = R/Z = ${fmt(Math.cos(th))} (${X>0?'lagging/induktif':X<0?'leading/kapasitif':'resistif'})`,`S = ${fmt(S)} VA; P = ${fmt(P)} W; Q = ${fmt(Q)} VAR`],r:[['Z',Z,'Ω'],['I',I,'A'],['cosφ',Math.cos(th),''],['P',P,'W'],['Q',Q,'VAR'],['S',S,'VA']],viz:{vec:[[R,0,'R'],[0,X,'X'],[R,X,'Z']]},note:'Segitiga impedansi: R, X = XL−XC, Z.'}});
 add(A8,'Fasor: Bentuk Persegi ↔ Polar','a1=a₁|b1=b₁|a2=a₂|b2=b₂',[[3,4,1,-1],[10,5,2,6]],({a1,b1,a2,b2})=>{const r1=Math.hypot(a1,b1),t1=deg(Math.atan2(b1,a1)),r2=Math.hypot(a2,b2),t2=deg(Math.atan2(b2,a2));need(r2>0,'Fasor kedua tidak boleh nol (pembagian)');const pr=r1*r2,pt=t1+t2,qr=r1/r2,qt=t1-t2;
 return{g:[`Z₁ = ${a1} + j${b1}; Z₂ = ${a2} + j${b2}`],f:['r = √(a²+b²); θ = atan2(b,a); a = r cosθ; b = r sinθ','Kali: r₁r₂ ∠(θ₁+θ₂); Bagi: r₁/r₂ ∠(θ₁−θ₂)'],s:[`Z₁ = ${fmt(r1)} ∠${fmt(t1)}°`,`Z₂ = ${fmt(r2)} ∠${fmt(t2)}°`,`Z₁·Z₂ = ${fmt(pr)} ∠${fmt(pt)}° = ${fmt(pr*Math.cos(rad(pt)))} + j${fmt(pr*Math.sin(rad(pt)))}`,`Z₁/Z₂ = ${fmt(qr)} ∠${fmt(qt)}° = ${fmt(qr*Math.cos(rad(qt)))} + j${fmt(qr*Math.sin(rad(qt)))}`],r:[['|Z₁|',r1,''],['∠Z₁',t1,'°'],['|Z₁Z₂|',pr,'']],viz:{vec:[[a1,b1,'Z₁'],[a2,b2,'Z₂'],[pr*Math.cos(rad(pt)),pr*Math.sin(rad(pt)),'Z₁Z₂']]}}});
+
 /* ===== MATERIAL & DINAMIKA ===== */
 add(A9,'Tegangan & Regangan Normal','F=F (N)|A=A (mm²)|L=L₀ (mm)|dL=ΔL (mm)',[[20000,100,500,0.5],[50000,314,1000,0.8]],({F,A,L,dL})=>{need(A>0&&L>0,'A dan L₀ harus > 0');const s=F/(A*1e-6),e=dL/L,E=s/e;
 return{g:[`A = ${A} mm² = ${fmt(A*1e-6)} m²`,`F=${F} N, L₀=${L} mm, ΔL=${dL} mm`],f:['σ = F/A; ε = ΔL/L₀; E = σ/ε (Hukum Hooke)'],s:[`σ = ${F}/${fmt(A*1e-6)} = ${fmt(s)} Pa = ${fmt(s/1e6)} MPa`,`ε = ${dL}/${L} = ${fmt(e)} (${fmt(e*100)}%)`,e?`E = ${fmt(s/1e6)} MPa / ${fmt(e)} = ${fmt(E/1e9)} GPa`:'ε = 0 → E tak terdefinisi'],r:[['σ',s/1e6,'MPa'],['ε',e,''],['E',E/1e9,'GPa']],note:'Baja ≈ 200 GPa, aluminium ≈ 70 GPa.'}});
@@ -120,6 +379,7 @@ add(A9,'Tekuk Kolom Euler','E=E (GPa)|b=b (mm)|h=h (mm)|L=L (m)|K=Faktor K (1; 0
 return{g:[`E=${E} GPa; penampang ${b}×${h} mm → I terkecil pada sisi ${mn*1e3} mm; L=${L} m, K=${K}`],f:['I_min = (sisi besar)(sisi kecil)³/12; P_cr = π²EI/(KL)²'],s:[`I_min = ${fmt(mx)}×${fmt(mn)}³/12 = ${fmt(I)} m⁴`,`(KL)² = (${K}×${L})² = ${fmt((K*L)**2)} m²`,`P_cr = ${fmt(PI*PI)}×${E*1e9}×${fmt(I)}/${fmt((K*L)**2)} = ${fmt(P)} N`],r:[['P_cr',P/1000,'kN']],note:'K: 1 sendi-sendi, 0,5 jepit-jepit, 0,7 jepit-sendi, 2 jepit-bebas.'}});
 add(A9,'Daya, Torsi & Tegangan Geser Poros','P=P (kW)|n=n (rpm)|d=d poros (mm)',[[15,1450,30],[5.5,960,25]],({P,n,d})=>{need(P>0&&n>0&&d>0,'Semua input harus > 0');const w=2*PI*n/60,T=P*1000/w,tau=16*T/(PI*(d/1e3)**3);
 return{g:[`P = ${P} kW = ${P*1000} W`,`n = ${n} rpm → ω = 2π·${n}/60 = ${fmt(w)} rad/s`,`d = ${d} mm = ${d/1e3} m`],f:['T = P/ω; τ_maks = 16T/(πd³)'],s:[`T = ${P*1000}/${fmt(w)} = ${fmt(T)} N·m`,`τ = 16×${fmt(T)}/(π×${fmt((d/1e3)**3)}) = ${fmt(tau/1e6)} MPa`],r:[['Torsi T',T,'N·m'],['τ maks',tau/1e6,'MPa']]}});
+
 /* ===== TERMO & FLUIDA ===== */
 add(B1,'Bilangan Reynolds & Rezim Aliran','rho=ρ (kg/m³)|v=v (m/s)|D=D (m)|mu=μ (Pa·s)',[[998,1.5,0.05,0.001],[1.2,10,0.1,0.0000181],[850,0.1,0.02,0.05]],({rho,v,D,mu})=>{need(rho>0&&v>0&&D>0&&mu>0,'Semua input harus > 0');const Re=rho*v*D/mu,reg=Re<2300?'Laminar':Re<4000?'Transisi':'Turbulen';
 return{g:[`ρ=${rho} kg/m³, v=${v} m/s, D=${D} m, μ=${mu} Pa·s`],f:['Re = ρvD/μ; laminar < 2300; transisi 2300–4000; turbulen > 4000 (aliran pipa)'],s:[`Re = (${rho}×${v}×${D})/${mu}`,`Re = ${fmt(Re)} → ${reg}`],r:[['Re',Re,''],['Rezim',reg,'']],viz:{gauge:Re}}});
@@ -129,6 +389,7 @@ add(B1,'Perpindahan Kalor: Konduksi & Konveksi','k=k (W/m·K)|A=A (m²)|L=tebal 
 return{g:[`ΔT = ${Th} − ${Tc} = ${dT} K (selisih °C = selisih K)`],f:['Konduksi (Fourier): Q = k·A·ΔT/L','Konveksi (Newton): Q = h·A·ΔT'],s:[`Q_kond = ${k}×${A}×${dT}/${L} = ${fmt(Qd)} W`,`Q_konv = ${h}×${A}×${dT} = ${fmt(Qv)} W`],r:[['Q konduksi',Qd,'W'],['Q konveksi',Qv,'W']]}});
 add(B1,'Efisiensi Termal Siklus Mesin Kalor','Th=T_H (°C)|Tc=T_C (°C)|Qin=Q masuk (kJ)|W=W netto (kJ)',[[500,30,1000,400],[300,25,500,150]],({Th,Tc,Qin,W})=>{need(Th>Tc&&Qin>0&&W>=0&&W<=Qin,'Syarat: T_H > T_C, Q>0, 0 ≤ W ≤ Q masuk');const eta=W/Qin,ec=1-(Tc+273.15)/(Th+273.15);
 return{g:[`T_H=${Th} °C = ${fmt(Th+273.15)} K; T_C=${Tc} °C = ${fmt(Tc+273.15)} K`],f:['η = W_netto/Q_masuk; η_Carnot = 1 − T_C/T_H (Kelvin); Q_buang = Q_in − W'],s:[`η = ${W}/${Qin} = ${fmt(eta*100)}%`,`Q_buang = ${fmt(Qin-W)} kJ`,`η_Carnot = 1 − ${fmt(Tc+273.15)}/${fmt(Th+273.15)} = ${fmt(ec*100)}%`],r:[['η',eta*100,'%'],['η Carnot',ec*100,'%']],note:eta>ec?'Peringatan: η melebihi Carnot — melanggar hukum II termodinamika!':`Mesin mencapai ${fmt(eta/ec*100)}% dari efisiensi ideal.`}});
+
 /* ===== CAD/CAE ===== */
 add(B2,'Skala Gambar','dg=Ukuran di gambar (mm)|n=Skala 1 : n',[[25,50],[120,0.5]],({dg,n})=>{need(dg>0&&n>0,'Ukuran dan n harus > 0');
 return{g:[`Ukuran gambar = ${dg} mm; skala 1:${n}`],f:['Ukuran sebenarnya = ukuran gambar × n (skala 1:n memperkecil)'],s:[`Real = ${dg} × ${n} = ${fmt(dg*n)} mm = ${fmt(dg*n/1000)} m`],r:[['Ukuran real',dg*n,'mm']],note:n<1?'n < 1 berarti skala pembesaran.':''}});
@@ -138,12 +399,14 @@ add(B2,'Transformasi Koordinat 2D (Skala→Rotasi→Translasi)','x=x|y=y|s=Skala
 return{g:[`P(${x}, ${y}); s=${s}; θ=${th}° = ${fmt(rad(th))} rad; t=(${tx}, ${ty})`],f:['Skala: (sx, sy); Rotasi: x′ = x cosθ − y sinθ, y′ = x sinθ + y cosθ; Translasi: (x+tx, y+ty)','Matriks homogen: T·R·S · [x y 1]ᵀ'],s:[`Skala: (${fmt(x1)}, ${fmt(y1)})`,`Rotasi: (${fmt(x1)}·${fmt(c)} − ${fmt(y1)}·${fmt(sn)}, ${fmt(x1)}·${fmt(sn)} + ${fmt(y1)}·${fmt(c)}) = (${fmt(x2)}, ${fmt(y2)})`,`Translasi: (${fmt(x3)}, ${fmt(y3)})`],r:[['x′',x3,''],['y′',y3,'']],viz:{vec:[[x,y,'P'],[x3,y3,"P′"]]}}});
 
 /* ===== VISUAL ===== */
-const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),COL=['#22d3ee','#fbbf24','#34d399'];
-function viz(v){if(!v)return'';const W=420,H=220,p=28;let b='';
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),COL=['#22d3ee','#fbbf24','#34d399','#a78bfa'];
+function viz(v){if(!v)return'';const W=460,H=220,p=28;let b='';
 if(v.fns){const N=240,xs=[...Array(N+1)].map((_,i)=>v.x0+(v.x1-v.x0)*i/N),ys=v.fns.map(f=>xs.map(x=>{const y=f(x);return isFinite(y)?y:0})),all=ys.flat();let lo=Math.min(...all),hi=Math.max(...all);if(lo===hi){lo-=1;hi+=1}const X=x=>p+(x-v.x0)/(v.x1-v.x0)*(W-2*p),Y=y=>H-p-(y-lo)/(hi-lo)*(H-2*p);
-b=`<path class="ax" d="M${p} ${Y(cl(0,lo,hi))}H${W-p}M${X(cl(0,v.x0,v.x1))} ${p}V${H-p}"/>`+ys.map((y,i)=>`<path class="pl" pathLength="1" stroke="${COL[i]}" d="${y.map((q,j)=>(j?'L':'M')+X(xs[j]).toFixed(1)+' '+Y(q).toFixed(1)).join('')}"/>`).join('')+`<text x="2" y="${p}">${fmt(hi)}</text><text x="2" y="${H-p}">${fmt(lo)}</text><text x="${p}" y="${H-6}">${fmt(v.x0)}</text><text x="${W-p-30}" y="${H-6}">${fmt(v.x1)}</text>`}
-else if(v.vec){const m=Math.max(...v.vec.map(a=>Math.hypot(a[0],a[1])),1e-9),s=(Math.min(W,H)/2-p)/m,cx=W/2,cy=H/2;b=`<path class="ax" d="M${p} ${cy}H${W-p}M${cx} ${p/2}V${H-p/2}"/>`+v.vec.map((a,i)=>{const x=cx+a[0]*s,y=cy-a[1]*s;return`<path class="pl" pathLength="1" stroke="${COL[i%3]}" d="M${cx} ${cy}L${x.toFixed(1)} ${y.toFixed(1)}"/><circle cx="${x}" cy="${y}" r="4" fill="${COL[i%3]}"/><text x="${x+6}" y="${y-6}">${a[2]} (${fmt(a[0])}, ${fmt(a[1])})</text>`}).join('')}
+b=`<path class="ax" d="M${p} ${Y(cl(0,lo,hi))}H${W-p}M${X(cl(0,v.x0,v.x1))} ${p}V${H-p}"/>`+ys.map((y,i)=>`<path class="pl" pathLength="1" stroke="${COL[i%4]}" d="${y.map((q,j)=>(j?'L':'M')+X(xs[j]).toFixed(1)+' '+Y(q).toFixed(1)).join('')}"/>`).join('')+`<text x="2" y="${p}">${fmt(hi)}</text><text x="2" y="${H-p}">${fmt(lo)}</text><text x="${p}" y="${H-6}">${fmt(v.x0)}</text><text x="${W-p-30}" y="${H-6}">${fmt(v.x1)}</text>`}
+else if(v.vec){const m=Math.max(...v.vec.map(a=>Math.hypot(a[0],a[1])),1e-9),s=(Math.min(W,H)/2-p)/m,cx=W/2,cy=H/2;b=`<path class="ax" d="M${p} ${cy}H${W-p}M${cx} ${p/2}V${H-p/2}"/>`+v.vec.map((a,i)=>{const x=cx+a[0]*s,y=cy-a[1]*s;return`<path class="pl" pathLength="1" stroke="${COL[i%4]}" d="M${cx} ${cy}L${x.toFixed(1)} ${y.toFixed(1)}"/><circle cx="${x}" cy="${y}" r="4" fill="${COL[i%4]}"/><text x="${x+6}" y="${y-6}">${a[2]} (${fmt(a[0])}, ${fmt(a[1])})</text>`}).join('')}
 else if(v.gauge!==undefined){const q=r=>p+cl(Math.log10(Math.max(r,1))/6,0,1)*(W-2*p),x=q(v.gauge);b=`<rect x="${q(1)}" y="90" width="${q(2300)-q(1)}" height="26" fill="#34d399"/><rect x="${q(2300)}" y="90" width="${q(4000)-q(2300)}" height="26" fill="#fbbf24"/><rect x="${q(4000)}" y="90" width="${q(1e6)-q(4000)}" height="26" fill="#f87171"/><path d="M${x} 86l-7-14h14z" fill="#e2e8f0"/><text x="${p}" y="136">1</text><text x="${q(2300)-14}" y="136">2300</text><text x="${q(4000)}" y="136">4000</text><text x="${W-p-22}" y="136">10⁶</text><text x="${p}" y="60">Skala log Re — Laminar | Transisi | Turbulen</text>`}
+else if(v.pf){const items=v.pf.terms;const span=(W-40)/Math.max(items.length,1);
+b=`<text x="20" y="34">Dekomposisi Pecahan Parsial: (${v.pf.num}) / (${v.pf.den})</text><line x1="20" y1="50" x2="${W-20}" y2="50" class="ax"/>`+items.map((t,i)=>{const cx=20+span*(i+.5);return`<path class="pl" pathLength="1" stroke="${COL[i%4]}" d="M${W/2} 50 L${cx.toFixed(1)} 105"/><rect x="${(cx-span*.42).toFixed(1)}" y="105" width="${(span*.84).toFixed(1)}" height="42" rx="8" fill="#101e38" stroke="${COL[i%4]}"/><text x="${cx.toFixed(1)}" y="130" text-anchor="middle" fill="#e2e8f0">${t}</text>`}).join('')}
 return`<svg viewBox="0 0 ${W} ${H}">${b}</svg>`}
 
 /* ===== UI ===== */
